@@ -33,8 +33,8 @@ class LCDDisplayUpdater(threading.Thread):
 
 class LCDDisplay(Observer):
 
-    def __init__(self,LCDHardware):
-        Observer.__init__(self)
+def notify(self,observable, *args, **kwargs):
+
 
 
 

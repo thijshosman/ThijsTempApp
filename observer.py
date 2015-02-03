@@ -1,4 +1,4 @@
-class Observable:
+class Observable(object):
     def __init__(self):
         self.__observers = []
 
@@ -10,7 +10,7 @@ class Observable:
             observer(self, *args, **kwargs)
 
 
-class Observer:
+class Observer(object):
     def __init__(self, observable):
         observable.register_observer(self.notify)
 
