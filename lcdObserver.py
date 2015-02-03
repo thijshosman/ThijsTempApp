@@ -2,6 +2,7 @@
 import threading
 import time
 import math
+from observer import *
 
 class LCDDisplayUpdater(threading.Thread):
 
@@ -30,7 +31,10 @@ class LCDDisplayUpdater(threading.Thread):
 
 
 
+class LCDDisplay(Observer):
 
+    def __init__(self,LCDHardware):
+        Observer.__init__(self)
 
 
 

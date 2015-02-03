@@ -18,6 +18,7 @@ class Observer:
         print('Got', args, kwargs, 'From', observable)
 
 
-subject = Observable()
-observer = Observer(subject)
-subject.notify_observers('test')
+if __name__ == '__main__':
+    subject = Observable()
+    observer = Observer(subject)
+    subject.notify_observers('test')
