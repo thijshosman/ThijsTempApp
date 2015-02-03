@@ -1,13 +1,16 @@
 
 class musicPlayer():
 
-	def __init__(self, ):
+	def __init__(self, song):
 		import pygame
-		song
+		pygame.mixer.init()
+		self.mysong = song
 
-	pygame.mixer.init()
-	pygame.mixer.music.load(song)
-	pygame.mixer.music.play()
+	def play(self):
+		pygame.mixer.music.load(self.mysong)
+	
+	
+	
 
  
 
