@@ -4,8 +4,6 @@ from time import sleep
 
 class LCDDisplayUpdater(threading.Thread):
     
-
-
     def __init__(self,lcd):
         import name
 
@@ -17,6 +15,13 @@ class LCDDisplayUpdater(threading.Thread):
         self.lcd = lcd
         self.line1 = ""
         self.line2 = ""
+
+    def swap(self,line1,line2):
+        self.line1 = line1
+        self.line2 = line2
+
+    def exit(self):
+        thread.exit()
 
     def run(self):
         while True:
@@ -151,8 +156,10 @@ class LCDButtonHandler(threading.Thread):
 
 
 if __name__=='__main__':
-    lcd1 = lcdscreen(1,"testthread")
+    lcd1 = LCDButtonHandler(1,"testthread")
     lcd1.start()
     lcd1.update("test\ntest")
 
+    anLCDDisplayUpdater = LCDDisplayUpdater(lcd1)
+    anLCDDisplayUpdater.start()
 
