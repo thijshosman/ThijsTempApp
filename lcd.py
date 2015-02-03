@@ -4,14 +4,18 @@ from time import sleep
 
 class lcdscreen(threading.Thread):
 
-    def __init__(self,threadID,name,counter):
+    def __init__(self,threadID,name):
         import math
         import time
         import Adafruit_CharLCD as LCD
+
+        # init thread
         threading.Thread.__init__(self)
+
+        # create threadlock
+        self.threadLock = threading.Lock()
         self.threadID=threadID
         self.name=name
-        self.counter=counter
         # Initialize the LCD using the pins
         self.lcd = LCD.Adafruit_CharLCDPlate()
         self.lcd.clear()
@@ -73,12 +77,17 @@ class lcdscreen(threading.Thread):
         # time.sleep(3.0)
 
     def update(self,string):
+        # make sure all these lcd commands get executed without interrupting
+        self.threadLock.acquire()
         self.lcd.clear()
         self.lcd.set_color(self.color[0],self.color[1],self.color[2])
-        self.lcd.message(string)
+        self.lcd.message(str(string))
+        self.threadLock.release()
+
+
 
     # Show button state.
-    def start1(self):
+    def startButtonListener(self):
         print 'Press Ctrl-C to quit.'
         while True:
         # Loop through each button and check if it is pressed.
@@ -89,7 +98,7 @@ class lcdscreen(threading.Thread):
                     #self.lcd.message(button[1])
                     #self.lcd.set_color(button[2][0], button[2][1], button[2][2])
                     self.color=[button[2][0], button[2][1], button[2][2]]
-                    self.update('a button was pressed')
+                    self.update(button[1])
                     # print button[0]
                     if button[0]==0:
                         # select is pressed
@@ -102,7 +111,7 @@ class lcdscreen(threading.Thread):
 
     def run(self):
         print "starting " + self.name
-        self.start1()
+        self.startButtonListener()
 
 
 
@@ -111,8 +120,8 @@ class lcdscreen(threading.Thread):
 
 
 if __name__=='__main__':
-    lcd1 = lcdscreen(1,"testthread",100)
+    lcd1 = lcdscreen(1,"testthread")
     lcd1.start()
-
+    lcd1.update("test\ntest")
 
 

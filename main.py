@@ -6,8 +6,10 @@ import time
 
 
 # create lcd screen
-lcd1 = lcdscreen()
+lcd1 = lcdscreen(1,"test")
 lcd1.start()
+
+
 
 aSensor = tempSensor()
 print aSensor.read()
@@ -15,9 +17,12 @@ print aSensor.read()
 
 while True:
     humidity,temperature = aSensor.read()
-    print temperature
-    lcd1.update(temperature)
-    time.sleep(3.0)
+
+    formattedTemperature = "%.1f" % temperature
+
+    print formattedTemperature
+    lcd1.update(formattedTemperature)
+    time.sleep(2.0)
 
 
 
