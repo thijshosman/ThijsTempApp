@@ -96,13 +96,16 @@ class LCDHardware(object):
         self.lcd.clear()
         self.lcd.set_color(self.color[0],self.color[1],self.color[2])
         self.lcd.message(str(string))
-    
+
     def isButtonPressed(self):
+
         for button in self.buttons:
             if self.lcd.is_pressed(button[0]):
+                #print "button %s pressed" % button[1]
+                time.sleep(0.2)
                 return button[1]
-            else
-                return False
+                #else:
+                    #return False
 
 
 
@@ -111,12 +114,15 @@ class LCDHardware(object):
 class LCDDisplay(Observer):
     '''observer that updates the display when it is notified by the subject'''
 
-    def __init__(self,LCDHardware,subject):
+    def __init__(self,subject,LCDHardware):
         super(LCDDisplay,self).__init__(subject)
+        self.LCDHardware = LCDHardware
+        print "initialized"
+
 
 
     def notify(self,observable, *args, **kwargs):
-        LCDHardware.update("got %s " % args)
+        self.LCDHardware.update("got %s " % args)
 
 
 
@@ -128,10 +134,18 @@ class LCDButtonListener(threading.Thread):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.name = name
+        self.LCDButtonObservable=Observable()
 
-        def run(self):
-            self.LCD.isButtonPressed()
-            selflcd.is_pressed(button[0]):
+    def broadcast(self,buttonPressed):
+        self.LCDButtonObservable.notify_observers('but: %s' % buttonPressed)
+
+    def run(self):
+        while True:
+            a=self.LCD.isButtonPressed()
+            if a:
+                self.broadcast(a)
+                #print "button pressed: %s" % selflcd.is_pressed(button[0])
+                #print "button pressed: "
 
     # def update(self,string):
     #     # make sure all these lcd commands get executed without interrupting
@@ -144,17 +158,6 @@ class LCDButtonListener(threading.Thread):
 
 
     # Show button state.
-    def run(self):
-        print "starting " + self.name
-        while True:
-        # Loop through each button and check if it is pressed.
-            
-            if self.LCD.isButtonPressed:
-                print self.LCD.isButtonPressed
-
-            # for button in self.buttons:
-            #     if self.lcd.is_pressed(button[0]):
-            #         # Button is pressed, change the message and backlight.
             #         #self.lcd.clear()
             #         #self.lcd.message(button[1])
             #         #self.lcd.set_color(button[2][0], button[2][1], button[2][2])
@@ -177,10 +180,23 @@ class LCDButtonListener(threading.Thread):
 
 
 if __name__=='__main__':
+
+    # init hardware
     lcd1 = LCDHardware()
-    
+
+    #while True:
+    #    lcd1.isButtonPressed()
+
+
+    # create listener/observable for buttons that listens to lcd1
     lcdlistener1 = LCDButtonListener(1,'testlistenerthread',lcd1)
-    lcdlistener1.start()    
+
+    # create display observer and let it listen to the lcdlistener observable
+    display1 = LCDDisplay(lcdlistener1.LCDButtonObservable,lcd1)
+    lcdlistener1.broadcast('testbutton')
+
+
+    lcdlistener1.start()
 
 
 
