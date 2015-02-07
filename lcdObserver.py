@@ -3,7 +3,7 @@ import threading
 import time
 import math
 from observer import *
-from LCDHardware import *
+from lcdHardware import *
 
 class LCDDisplayUpdater(threading.Thread):
     #deprecated
@@ -29,6 +29,15 @@ class LCDDisplayUpdater(threading.Thread):
             time.sleep(1.0)
 
 
+class LogDisplay(Observer):
+    '''log notifications to standard out'''
+    def __init__(self,subject):
+        super(LogDisplay,self).__init__(subject)
+    def notify(self,observable,*args,**kwargs):
+        for name,value in kwargs.items():
+            print '{0} = {1} from {2}'.format(name,value,observable)
+        for arg in args:
+            print '{0} from {1}'.format(arg,observable)
 
 
 class LCDDisplay(Observer):
@@ -40,9 +49,23 @@ class LCDDisplay(Observer):
         print "initialized"
 
     def notify(self,observable, *args, **kwargs):
+        # notify the screen
+        kwargs['line1']=kwargs['button']
+        if kwargs['button']=='Select':
+            kwargs['color']=[1,0,0]
+        else:
+            kwargs['color']=[1,1,1]
         self.LCDHardware.update(*args, **kwargs)
 
 
+#class buttonHandler(Observer):
+#    '''buttonhandler'''
+#    def __init__(self,subjectlistener):
+#        super(buttonHandler,self).__init__(subjectlistener)
+#
+#    def notify(self,observable, *args, **kwargs):
+#        if 'button' in kwargs.items():
+#            print 'button pressed: {0}'.format(kwargs['button'])
 
 
 
@@ -53,26 +76,30 @@ class LCDButtonListener(threading.Thread):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.name = name
+        self.stop_event = threading.Event()
         self.LCDButtonObservable=Observable()
 
-    def broadcast(self,buttonPressed):
-        self.LCDButtonObservable.notify_observers('but: %s' % buttonPressed)
+    def broadcast(self,*args,**kwargs):
+        self.LCDButtonObservable.notify_observers(*args,**kwargs)
+
+    def stop(self):
+        self.stop_event.set()
 
     def run(self):
-        while True:
+        while self.stop_event.is_set() == False:
             a=self.LCD.isButtonPressed()
-            if a:
-                self.broadcast(a)
-                #print "button pressed: %s" % selflcd.is_pressed(button[0])
-                #print "button pressed: "
 
-    # def update(self,string):
-    #     # make sure all these lcd commands get executed without interrupting
-    #     self.threadLock.acquire()
-    #     #self.lcd.clear()
-    #     self.lcd.set_color(self.color[0],self.color[1],self.color[2])
-    #     self.lcd.message(str(string))
-    #     self.threadLock.release()
+            if a:
+                self.broadcast(button=a)
+
+
+
+
+            # directly notify lcdDisplay
+            #if a:
+            #    self.broadcast(a)
+            #if a == 'Select':
+            #    self.broadcast('hello',color=[1.0,0.0,0.0])
 
 
 
@@ -97,7 +124,6 @@ class LCDButtonListener(threading.Thread):
 
 
 
-
 if __name__=='__main__':
 
     # init hardware
@@ -112,12 +138,19 @@ if __name__=='__main__':
 
     # create display observer and let it listen to the lcdlistener observable
     display1 = LCDDisplay(lcdlistener1.LCDButtonObservable,lcd1)
+    display2 = LogDisplay(lcdlistener1.LCDButtonObservable)
 
+
+
+
+
+    # buttonhandler1 = buttonHandler(lcdlistener1.LCDButtonObservable)
     # see if observer works
     # lcdlistener1.broadcast('testbutton')
 
     # start listening for buttons
     lcdlistener1.start()
+    # lcdlistener1.broadcast(button='left')
 
     do_exit = False
     while do_exit == False:
