@@ -4,6 +4,7 @@ import time
 import math
 from observer import *
 from lcdHardware import *
+from temp import *
 
 class LCDDisplayUpdater(threading.Thread):
     #deprecated
@@ -29,10 +30,10 @@ class LCDDisplayUpdater(threading.Thread):
             time.sleep(1.0)
 
 
-class LogDisplay(Observer):
+class LogObserver(Observer):
     '''log notifications to standard out'''
     def __init__(self,subject):
-        super(LogDisplay,self).__init__(subject)
+        super(LogObserver,self).__init__(subject)
     def notify(self,observable,*args,**kwargs):
         for name,value in kwargs.items():
             print '{0} = {1} from {2}'.format(name,value,observable)
@@ -46,7 +47,7 @@ class LCDDisplay(Observer):
     def __init__(self,subject,LCDHardware):
         super(LCDDisplay,self).__init__(subject)
         self.LCDHardware = LCDHardware
-        print "initialized"
+        print "initialized display"
 
     def notify(self,observable, *args, **kwargs):
         # notify the screen
@@ -126,31 +127,38 @@ class LCDButtonListener(threading.Thread):
 
 if __name__=='__main__':
 
+    ### LCD stuff
+
     # init hardware
     lcd1 = LCDHardware()
-
-    #while True:
-    #    lcd1.isButtonPressed()
-
 
     # create listener/observable for buttons that listens to lcd1
     lcdlistener1 = LCDButtonListener(1,'testlistenerthread',lcd1)
 
     # create display observer and let it listen to the lcdlistener observable
-    display1 = LCDDisplay(lcdlistener1.LCDButtonObservable,lcd1)
-    display2 = LogDisplay(lcdlistener1.LCDButtonObservable)
-
-
-
-
-
-    # buttonhandler1 = buttonHandler(lcdlistener1.LCDButtonObservable)
-    # see if observer works
-    # lcdlistener1.broadcast('testbutton')
+    # display1 = LCDDisplay(lcdlistener1.LCDButtonObservable,lcd1)
+    log1 = LogObserver(lcdlistener1.LCDButtonObservable)
 
     # start listening for buttons
     lcdlistener1.start()
     # lcdlistener1.broadcast(button='left')
+
+    ### Temp stuff
+    aSensor = tempSensor()
+
+    aTempPoller = sensorPoller(aSensor,interval=2)
+
+    # register default observer with the poller
+    # firstobserver = Observer(aTempPoller.observable)
+
+    # add the temppoller to the list of observabes display1 observes
+    # aTempPoller.registerExtraObserver(display1)
+    display1 = LCDDisplay(aTempPoller.observable,lcd1)
+
+    # start polling temperature
+    aTempPoller.start()
+
+
 
     do_exit = False
     while do_exit == False:
@@ -163,6 +171,7 @@ if __name__=='__main__':
 
     # stop all running threads
     lcdlistener1.stop()
+    aTempPoller.stop()
 
 
     # lcd1.start()
