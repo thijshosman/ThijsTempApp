@@ -86,3 +86,13 @@ class LCDHardware(object):
                 return button[1]
                 #else:
                     #return False
+
+if __name__ == '__main__':
+    lcd1 = LCDHardware()
+    
+    lcd1.update(color=[1,0,0])
+    time.sleep(0.3)
+    lcd1.update(color=[0,1,0])
+    lcd1.update(line1='first line')
+    lcd1.update(line2='second line')
+
