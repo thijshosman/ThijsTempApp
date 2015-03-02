@@ -79,10 +79,10 @@ class LCDButtonListener(threading.Thread):
         self.threadID = threadID
         self.name = name
         self.stop_event = threading.Event()
-        self.LCDButtonObservable=Observable()
+        self.observable=Observable()
 
     def broadcast(self,*args,**kwargs):
-        self.LCDButtonObservable.notify_observers(*args,**kwargs)
+        self.observable.notify_observers(*args,**kwargs)
 
     def stop(self):
         self.stop_event.set()
@@ -124,28 +124,28 @@ class mainLoop(MultiObserver):
     '''main event loop'''
     def __init__(self):
         super(mainLoop,self).__init__()
-        
+
         # init hardware class for lcd display and temp sensor
         self.lcd1 = LCDHardware()
         self.aSensor = tempSensor()
 
         # create a poller for the temp sensor
-        self.aTempPoller = sensorPoller(aSensor,interval=2)
+        self.aTempPoller = sensorPoller(self.aSensor,interval=2)
 
         # add the temppoller observable to the list to be observed
-        self.add_observable(aTempPoller.observable)
+        self.add_observable(self.aTempPoller.observable)
 
         # init listener thread and start listening to button presses on lcd1
-        lcdlistener1 = LCDButtonListener(1,'buttonpresslistenerthread',lcd1)
+        self.lcdlistener1 = LCDButtonListener(1,'buttonpresslistenerthread',self.lcd1)
 
         # add the lcdlistener to the list to be observed
-        self.add_observable(lcdlistener1.observable)
+        self.add_observable(self.lcdlistener1.observable)
 
         # register the command line observer with the lcdlistener observable
         # ButtonLog = LogObserver(lcdlistener1.LCDButtonObservable)
 
 
-        
+
 
         # start the buttonlisten thread
         self.lcdlistener1.start()
