@@ -8,6 +8,7 @@ from temp import *
 
 class LCDDisplayUpdater(threading.Thread):
     #deprecated
+    '''periodically update the display'''
     def __init__(self,lcd):
 
         threading.Thread.__init__(self)
@@ -119,46 +120,54 @@ class LCDButtonListener(threading.Thread):
             #             #thread.exit()
             #             # throws exeption
 
+class mainLoop(MultiObserver):
+    '''main event loop'''
+    def __init__(self):
+        super(mainLoop,self).__init__()
+        
+        # init hardware class for lcd display and temp sensor
+        self.lcd1 = LCDHardware()
+        self.aSensor = tempSensor()
+
+        # create a poller for the temp sensor
+        self.aTempPoller = sensorPoller(aSensor,interval=2)
+
+        # add the temppoller observable to the list to be observed
+        self.add_observable(aTempPoller.observable)
+
+        # init listener thread and start listening to button presses on lcd1
+        lcdlistener1 = LCDButtonListener(1,'buttonpresslistenerthread',lcd1)
+
+        # add the lcdlistener to the list to be observed
+        self.add_observable(lcdlistener1.observable)
+
+        # register the command line observer with the lcdlistener observable
+        # ButtonLog = LogObserver(lcdlistener1.LCDButtonObservable)
 
 
+        
+
+        # start the buttonlisten thread
+        self.lcdlistener1.start()
+        self.aTempPoller.start()
+
+    def notify(self,observable, *args, **kwargs):
+        print('Got', args, kwargs, 'From', observable)
+
+
+    def stop(self):
+        # stop polling temp
+        self.aTempPoller.stop()
+
+        # stop listening for button input
+        self.lcdlistener1.stop()
 
 
 
 
 if __name__=='__main__':
 
-    ### LCD stuff
-
-    # init hardware
-    lcd1 = LCDHardware()
-
-    # create listener/observable for buttons that listens to lcd1
-    lcdlistener1 = LCDButtonListener(1,'testlistenerthread',lcd1)
-
-    # create display observer and let it listen to the lcdlistener observable
-    # display1 = LCDDisplay(lcdlistener1.LCDButtonObservable,lcd1)
-    log1 = LogObserver(lcdlistener1.LCDButtonObservable)
-
-    # start listening for buttons
-    lcdlistener1.start()
-    # lcdlistener1.broadcast(button='left')
-
-    ### Temp stuff
-    aSensor = tempSensor()
-
-    aTempPoller = sensorPoller(aSensor,interval=2)
-
-    # register default observer with the poller
-    # firstobserver = Observer(aTempPoller.observable)
-
-    # add the temppoller to the list of observabes display1 observes
-    # aTempPoller.registerExtraObserver(display1)
-    display1 = LCDDisplay(aTempPoller.observable,lcd1)
-
-    # start polling temperature
-    aTempPoller.start()
-
-
+    handler = mainLoop()
 
     do_exit = False
     while do_exit == False:
@@ -169,14 +178,53 @@ if __name__=='__main__':
             # Ctrl+C was hit - exit program
             do_exit = True
 
-    # stop all running threads
-    lcdlistener1.stop()
-    aTempPoller.stop()
+    handler.stop()
+
+    # ### LCD stuff
+
+    # # init hardware
+    # lcd1 = LCDHardware()
+
+    # # create listener/observable for buttons that listens to lcd1
+    # lcdlistener1 = LCDButtonListener(1,'testlistenerthread',lcd1)
+
+    # # create display observer and let it listen to the lcdlistener observable
+    # # display1 = LCDDisplay(lcdlistener1.LCDButtonObservable,lcd1)
+    # log1 = LogObserver(lcdlistener1.LCDButtonObservable)
+
+    # # start listening for buttons
+    # lcdlistener1.start()
+    # # lcdlistener1.broadcast(button='left')
+
+    # ### Temp stuff
+    # aSensor = tempSensor()
+
+    # aTempPoller = sensorPoller(aSensor,interval=2)
+
+    # # register default observer with the poller
+    # # firstobserver = Observer(aTempPoller.observable)
+
+    # # add the temppoller to the list of observabes display1 observes
+    # # aTempPoller.registerExtraObserver(display1)
+    # display1 = LCDDisplay(aTempPoller.observable,lcd1)
+
+    # # start polling temperature
+    # aTempPoller.start()
 
 
-    # lcd1.start()
-    # lcd1.update("test\ntest")
 
-    # anLCDDisplayUpdater = LCDDisplayUpdater(lcd1)
-    # anLCDDisplayUpdater.start()
+    # do_exit = False
+    # while do_exit == False:
+    #     try:
+    #         # sleep some time
+    #         time.sleep(0.1)
+    #     except KeyboardInterrupt:
+    #         # Ctrl+C was hit - exit program
+    #         do_exit = True
+
+    # # stop all running threads
+    # lcdlistener1.stop()
+    # aTempPoller.stop()
+
+
 
