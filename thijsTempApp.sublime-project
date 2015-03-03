@@ -1,0 +1,14 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"source ~/Developer/virtualenv/dev/bin/activate && python -u $file"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "testbuilder",
+			"shell": true
+		}
+	]
+}

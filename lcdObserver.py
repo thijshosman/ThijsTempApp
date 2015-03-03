@@ -5,6 +5,7 @@ import math
 from observer import *
 from lcdHardware import *
 from temp import *
+import plotlyObserver
 
 class LCDDisplayUpdater(threading.Thread):
     #deprecated
@@ -132,6 +133,9 @@ class mainLoop(MultiObserver):
         # create a poller for the temp sensor
         self.aTempPoller = sensorPoller(self.aSensor,interval=2)
 
+        # log temperatures to plotly by adding plotlyobserver
+        plotlyobstemp = plotlyObserver(self.aTempPoller.observable)
+
         # add the temppoller observable to the list to be observed
         self.add_observable(self.aTempPoller.observable)
 
@@ -141,10 +145,6 @@ class mainLoop(MultiObserver):
         # add the lcdlistener to the list to be observed
         self.add_observable(self.lcdlistener1.observable)
 
-        # register the command line observer with the lcdlistener observable
-        # ButtonLog = LogObserver(lcdlistener1.LCDButtonObservable)
-
-
 
 
         # start the buttonlisten thread
@@ -153,6 +153,8 @@ class mainLoop(MultiObserver):
 
     def notify(self,observable, *args, **kwargs):
         print('Got', args, kwargs, 'From', observable)
+
+        if observable.name == ''
 
 
     def stop(self):
