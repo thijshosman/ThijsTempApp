@@ -24,10 +24,10 @@ class plotlyObserver(Observer):
 		        'x': [], 'y': [], 'type': 'scatter',
 		        'stream': {
 		            'token': self.plotly_user_config['plotly_streaming_tokens'][0],
-		            'maxpoints': 200
+		            'maxpoints': 1000
 		        }
 		    }], filename=name)
-		    
+
 		# print "View your streaming graph here: ", url
 
 		# open stream

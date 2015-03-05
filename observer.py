@@ -1,6 +1,7 @@
 class Observable(object):
-    def __init__(self):
+    def __init__(self,name=''):
         self.__observers = []
+        self.name=name
 
     def register_observer(self, observer):
         self.__observers.append(observer)

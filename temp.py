@@ -24,7 +24,7 @@ class sensorPoller(threading.Thread):
     '''temporarily polls the temperature sensor'''
     def __init__(self,sensor,interval=2):
         self.sensor = sensor
-        self.observable = Observable()
+        self.observable = Observable('temp')
         threading.Thread.__init__(self)
         self.stop_event = threading.Event()
         self.interval = interval

@@ -5,7 +5,7 @@ import math
 from observer import *
 from lcdHardware import *
 from temp import *
-import plotlyObserver
+from plotlyObserver import *
 
 class LCDDisplayUpdater(threading.Thread):
     #deprecated
@@ -80,7 +80,7 @@ class LCDButtonListener(threading.Thread):
         self.threadID = threadID
         self.name = name
         self.stop_event = threading.Event()
-        self.observable=Observable()
+        self.observable=Observable('button')
 
     def broadcast(self,*args,**kwargs):
         self.observable.notify_observers(*args,**kwargs)
@@ -153,7 +153,7 @@ class mainLoop(MultiObserver):
 
     def notify(self,observable, *args, **kwargs):
         # gets called by observables registered in constructor (atemppoller and buttonlistener)
-        print('Got', args, kwargs, 'From', observable.__name__)
+        print('Got', args, kwargs, 'From', observable.name)
 
         # temp updated
         #if observable.__name__ == 'aTempPoller':
