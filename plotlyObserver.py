@@ -18,6 +18,7 @@ class plotlyObserver(Observer):
 		    self.plotly_user_config = json.load(config_file)
 		    py.sign_in(self.plotly_user_config["plotly_username"], self.plotly_user_config["plotly_api_key"])
 
+		# set up
 		self.url = py.plot([
 		    {
 		        'x': [], 'y': [], 'type': 'scatter',
@@ -35,8 +36,8 @@ class plotlyObserver(Observer):
 
 	def notify(self,observable, *args, **kwargs):
 		# write to plotly
-		if 'temperature' in kwargs:
-			self.stream.write({'x': datetime.datetime.now(), 'y': kwargs['temperature']})
+		if 'value' in kwargs:
+			self.stream.write({'x': datetime.datetime.now(), 'y': kwargs['value']})
 
 
 
@@ -59,7 +60,7 @@ class plotlyObserver(Observer):
 if __name__ == '__main__':
 	subject = Observable()
 	plyobs = plotlyObserver(subject,'config.json','test stream plot')
-	subject.notify_observers(temperature=45)
-	subject.notify_observers(temperature=55)
+	subject.notify_observers(value=45)
+	subject.notify_observers(value=55)
 
 

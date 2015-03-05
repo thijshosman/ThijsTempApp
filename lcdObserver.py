@@ -131,10 +131,10 @@ class mainLoop(MultiObserver):
         self.aSensor = tempSensor()
 
         # create a poller for the temp sensor
-        self.aTempPoller = sensorPoller(self.aSensor,interval=2)
+        self.aTempPoller = sensorPoller(self.aSensor,interval=5)
 
         # log temperatures to plotly by adding plotlyobserver
-        plotlyobstemp = plotlyObserver(self.aTempPoller.observable)
+        self.plotlyobstemp = plotlyObserver(self.aTempPoller.observable,'config.json','test stream plot')
 
         # add the temppoller observable to the list to be observed
         self.add_observable(self.aTempPoller.observable)
@@ -152,9 +152,13 @@ class mainLoop(MultiObserver):
         self.aTempPoller.start()
 
     def notify(self,observable, *args, **kwargs):
-        print('Got', args, kwargs, 'From', observable)
+        # gets called by observables registered in constructor (atemppoller and buttonlistener)
+        print('Got', args, kwargs, 'From', observable.__name__)
 
-        if observable.name == ''
+        # temp updated
+        #if observable.__name__ == 'aTempPoller':
+        #    self.lcd1.update(line1='temp=')
+
 
 
     def stop(self):
