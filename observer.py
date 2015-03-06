@@ -33,11 +33,12 @@ class MultiObserver(object):
 
 if __name__ == '__main__':
     subject = Observable()
+    
     observer = Observer(subject)
     subject.notify_observers('test')
 
 
-    subject2 = Observable()
+    subject2 = Observable('testname')
     aMultiObserver = MultiObserver()
     aMultiObserver.add_observable(subject)
     aMultiObserver.add_observable(subject2)
