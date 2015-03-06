@@ -24,7 +24,7 @@ class plotlyObserver(Observer):
 		        'x': [], 'y': [], 'type': 'scatter',
 		        'stream': {
 		            'token': self.plotly_user_config['plotly_streaming_tokens'][0],
-		            'maxpoints': 1000
+		            'maxpoints': 1440
 		        }
 		    }], filename=name)
 

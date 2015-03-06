@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     aSensor = tempSensor()
 
-    aTempPoller = sensorPoller(aSensor,interval=2)
+    aTempPoller = sensorPoller(aSensor,interval=60)
 
     #register default observer with the poller
     firstobserver = Observer(aTempPoller.observable)

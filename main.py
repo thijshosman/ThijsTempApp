@@ -38,7 +38,7 @@ class mainLoop(MultiObserver):
 
         # temp updated
         if observable.name == 'aTempPoller':
-            self.lcd1.update(line1='temp=%.1f' % kwargs['value'])
+            self.lcd1.update(line1='temp=%.1f C' % kwargs['value'])
 
 
 
