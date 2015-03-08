@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"up",
+				"update"
+			],
+			[
+				"plotly",
+				"plotlyObserver"
+			],
+			[
+				"Obs",
+				"observable"
+			],
+			[
+				"plot",
+				"plotlyObserver"
+			],
+			[
 				"main",
 				"mainLoop"
 			],
@@ -28,20 +44,64 @@
 	"buffers":
 	[
 		{
+			"file": "config.json",
+			"settings":
+			{
+				"buffer_size": 109,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "plotlyObserver.py",
+			"settings":
+			{
+				"buffer_size": 1735,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "temp.py",
+			"settings":
+			{
+				"buffer_size": 1793,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "lcdObserver.py",
 			"settings":
 			{
-				"buffer_size": 6377,
+				"buffer_size": 3457,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.py",
+			"settings":
+			{
+				"buffer_size": 3223,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thijs/Developer/python/basics/formatting.py",
+			"settings":
+			{
+				"buffer_size": 25,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system": "python 2.7 dev venv ",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 347.0,
 		"selected_items":
 		[
+			[
+				"Package Control: ",
+				"Package Control: Disable Package"
+			],
 			[
 				"packa",
 				"Package Control: Install Package"
@@ -73,13 +133,23 @@
 	},
 	"file_history":
 	[
-		"/Users/thijs/Developer/python/ThijsTempApp/observer.py",
+		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/GitGutter/GitGutter.sublime-settings",
+		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/Git/Git.sublime-settings",
+		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/Side Bar.sublime-settings",
+		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
+		"/Users/thijs/Developer/python/ThijsTempApp/audio.py",
+		"/Users/thijs/Developer/python/ThijsTempApp/thijsTempApp.sublime-project",
+		"/Users/thijs/Developer/python/ThijsTempApp/testtempreading.py",
 		"/Users/thijs/Developer/python/ThijsTempApp/temp.py",
-		"/Users/thijs/Developer/python/ThijsTempApp/lcdObserver.py",
+		"/Users/thijs/Developer/python/ThijsTempApp/observertest.py",
+		"/Users/thijs/Developer/python/ThijsTempApp/plotlyObserver.py",
+		"/Users/thijs/Developer/python/ThijsTempApp/test1.py",
+		"/Users/thijs/Developer/python/ThijsTempApp/observer.py",
 		"/Users/thijs/Developer/python/ThijsTempApp/lcdHardware.py",
+		"/Users/thijs/Developer/python/ThijsTempApp/lcdObserver.py",
+		"/Users/thijs/Desktop/ML.sublime-project",
 		"/Users/thijs/Developer/python/ThijsTempApp/lcdevent.py",
 		"/Users/thijs/Developer/python/ThijsTempApp/lcd.py",
-		"/Users/thijs/Desktop/ML.sublime-project",
 		"/Users/thijs/Developer/python/pymc/test2.py",
 		"/Users/thijs/Developer/python/pymc/mymodel.py",
 		"/Users/thijs/Developer/python/pymc/test1.py",
@@ -132,24 +202,81 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "lcdObserver.py",
+					"file": "config.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6377,
+						"buffer_size": 109,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "plotlyObserver.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1735,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								693,
+								693
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "temp.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1793,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1301,
+								1301
 							]
 						],
 						"settings":
@@ -158,11 +285,99 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 1916.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lcdObserver.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3457,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2243,
+								2243
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1314,
+								1314
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/thijs/Developer/python/basics/formatting.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -201,7 +416,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 100.0
+		"height": 252.0
 	},
 	"output.find_results":
 	{
@@ -246,7 +461,7 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": false,
+	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 150.0,
