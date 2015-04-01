@@ -45,4 +45,5 @@ if __name__ == '__main__':
     subject2.notify_observers('test from 2')
     subject.notify_observers('test from 1')
     print aMultiObserver.observables
+    # test for git
 
