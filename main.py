@@ -1,6 +1,6 @@
-from plotlyObserver import *
-from temp import *
-from lcdObserver import *
+from lib import temp
+from lib import plotlyObserver
+from lib import lcdObserver
 
 class mainLoop(MultiObserver):
     '''main event loop'''
