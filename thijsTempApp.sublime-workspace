@@ -44,27 +44,19 @@
 	"buffers":
 	[
 		{
-			"file": "config.json",
-			"settings":
-			{
-				"buffer_size": 109,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "plotlyObserver.py",
-			"settings":
-			{
-				"buffer_size": 1735,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "temp.py",
 			"settings":
 			{
 				"buffer_size": 1793,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lcd.py",
+			"settings":
+			{
+				"buffer_size": 3724,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -82,20 +74,33 @@
 				"buffer_size": 3217,
 				"line_ending": "Unix"
 			}
-		},
-		{
-			"file": "/Users/thijs/Developer/python/basics/formatting.py",
-			"settings":
-			{
-				"buffer_size": 25,
-				"line_ending": "Unix"
-			}
 		}
 	],
-	"build_system": "python 2.7 dev venv ",
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 347.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -133,6 +138,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/thijsTempApp.sublime-project",
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/testpath.py",
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/lib/foo1.py",
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/lib/__init__.py",
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/config.json",
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/audio.py",
+		"/C/Users/thijs.hosman/Documents/developer/ThijsTempApp/plotlyObserver.py",
+		"/Users/thijs/Developer/python/basics/formatting.py",
 		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/GitGutter/GitGutter.sublime-settings",
 		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/Git/Git.sublime-settings",
 		"/Users/thijs/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/Side Bar.sublime-settings",
@@ -202,68 +215,11 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "config.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 109,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								42,
-								42
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "plotlyObserver.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1735,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								423,
-								423
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "temp.py",
 					"semi_transient": false,
 					"settings":
@@ -275,8 +231,8 @@
 						"selection":
 						[
 							[
-								1301,
-								1301
+								1274,
+								1274
 							]
 						],
 						"settings":
@@ -289,11 +245,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
+					"file": "lcd.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3724,
+								3724
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1085.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "lcdObserver.py",
 					"semi_transient": false,
 					"settings":
@@ -323,7 +309,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "main.py",
 					"semi_transient": false,
 					"settings":
@@ -350,35 +336,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/thijs/Developer/python/basics/formatting.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15,
-								15
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -423,6 +381,7 @@
 	{
 		"height": 0.0
 	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
 	"project": "thijsTempApp.sublime-project",
 	"replace":
 	{
@@ -432,6 +391,7 @@
 	"select_file":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -440,6 +400,7 @@
 	"select_project":
 	{
 		"height": 500.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -452,6 +413,7 @@
 	"select_symbol":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
