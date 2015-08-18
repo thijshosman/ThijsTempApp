@@ -18,7 +18,7 @@ class mainLoop(observer.MultiObserver):
         self.aTempPoller = temp.sensorPoller(self.aSensor,interval=60)
 
         # log temperatures to plotly by adding plotlyobserver
-        # self.plotlyobstemp = plotly.plotlyObserver(self.aTempPoller.observable,'config.json','test stream plot')
+        self.plotlyobstemp = plotly.plotlyObserver(self.aTempPoller.observable,'config.json','test stream plot')
 
         # add the temppoller observable to the list to be observed
         self.add_observable(self.aTempPoller.observable)
@@ -41,7 +41,9 @@ class mainLoop(observer.MultiObserver):
 
         # temp updated
         if observable.name == 'temp':
-            self.lcd1.update(line1='temp=%.1f C' % kwargs['value'])
+            self.lcd1.update(line1='temp=%.1fC/%.0fF' % (kwargs['value'],kwargs['value']*9.0/5.0+32))
+            t = kwargs['timestamp']
+            self.lcd1.update(line2='%02d:%02d' % (time.localtime(t).tm_hour,time.localtime(t).tm_min) )
         elif observable.name == 'button':
             buttonName = kwargs['button']
             if buttonName == 'Right':

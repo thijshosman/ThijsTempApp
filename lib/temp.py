@@ -36,7 +36,7 @@ class sensorPoller(threading.Thread):
         while self.stop_event.is_set() == False:
             # print self.sensor.readTemp()
             temperature = self.sensor.readTemp()
-            self.broadcast(value = temperature)
+            self.broadcast(value = temperature,timestamp = time.time())
             time.sleep(self.interval)
 
     def stop(self):

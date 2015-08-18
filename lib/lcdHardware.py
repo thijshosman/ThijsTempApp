@@ -58,7 +58,6 @@ class LCDHardware(object):
             self.color = [1.0,1.0,1.0]
         self.updateColor()
 
-
     def nextColor(self):
         '''cycle through colors'''
         self.currentColorIndex = (self.currentColorIndex + 1)%(len(self.colorArray))
@@ -71,11 +70,10 @@ class LCDHardware(object):
         self.setColor(self.colorArray[self.currentColorIndex])
         return self.colorArray[self.currentColorIndex]
 
-
     def updateColor(self):
         '''tell the lcd hardware to change color'''
         self.lcd.set_color(self.color[0],self.color[1],self.color[2])
-        time.sleep(1)
+        #time.sleep(1)
 
         # # Show some basic colors.
         # lcd.set_color(1.0, 0.0, 0.0)
@@ -123,14 +121,11 @@ class LCDHardware(object):
             self.lcd.message('{0}\n{1}'.format(self.line1,self.line2))
 
     def isButtonPressed(self):
-
         for button in self.buttons:
             if self.lcd.is_pressed(button[0]):
                 #print "button %s pressed" % button[1]
                 time.sleep(0.3)
                 return button[1]
-                #else:
-                    #return False
 
 if __name__ == '__main__':
     lcd1 = LCDHardware()

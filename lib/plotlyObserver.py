@@ -37,7 +37,8 @@ class plotlyObserver(Observer):
 	def notify(self,observable, *args, **kwargs):
 		# write to plotly
 		if 'value' in kwargs:
-			self.stream.write({'x': datetime.datetime.now(), 'y': kwargs['value']})
+			# self.stream.write({'x': datetime.datetime.now(), 'y': kwargs['value']})
+			self.stream.write({'x': kwargs['timestamp'], 'y': kwargs['value']})
 
 
 
