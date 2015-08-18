@@ -1,5 +1,5 @@
 
-from observer import *
+import observer
 import Adafruit_DHT
 import time
 import threading
@@ -24,7 +24,7 @@ class sensorPoller(threading.Thread):
     '''temporarily polls the temperature sensor'''
     def __init__(self,sensor,interval=2):
         self.sensor = sensor
-        self.observable = Observable('temp')
+        self.observable = observer.Observable('temp')
         threading.Thread.__init__(self)
         self.stop_event = threading.Event()
         self.interval = interval
@@ -46,10 +46,10 @@ if __name__ == '__main__':
 
     aSensor = tempSensor()
 
-    aTempPoller = sensorPoller(aSensor,interval=60)
+    aTempPoller = sensorPoller(aSensor,interval=10)
 
     #register default observer with the poller
-    firstobserver = Observer(aTempPoller.observable)
+    firstobserver = observer.Observer(aTempPoller.observable)
 
     aTempPoller.start()
 

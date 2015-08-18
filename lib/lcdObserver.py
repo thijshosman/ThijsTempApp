@@ -1,8 +1,8 @@
 import threading
 import time
 import math
-from observer import *
-from lcdHardware import *
+import observer
+#import lcdHardware
 
 
 
@@ -31,7 +31,7 @@ class LCDDisplayUpdater(threading.Thread):
             time.sleep(1.0)
 
 
-class LogObserver(Observer):
+class LogObserver(observer.Observer):
     '''log notifications to standard out'''
     def __init__(self,subject):
         super(LogObserver,self).__init__(subject)
@@ -42,8 +42,8 @@ class LogObserver(Observer):
             print '{0} from {1}'.format(arg,observable)
 
 
-class LCDDisplay(Observer):
-    '''observer that updates the display when it is notified by the subject'''
+class LCDDisplay(observer.Observer):
+    '''DEPRECATED. observer that updates the display when it is notified by the subject'''
 
     def __init__(self,subject,LCDHardware):
         super(LCDDisplay,self).__init__(subject)
@@ -79,7 +79,7 @@ class LCDButtonListener(threading.Thread):
         self.threadID = threadID
         self.name = name
         self.stop_event = threading.Event()
-        self.observable=Observable(name)
+        self.observable=observer.Observable(name)
 
     def broadcast(self,*args,**kwargs):
         self.observable.notify_observers(*args,**kwargs)

@@ -21,14 +21,61 @@ class LCDHardware(object):
         self.lcd.create_char(7, [31, 17, 21, 21, 21, 21, 17, 31])
 
         # Make list of button value, text, and backlight color.
-        self.buttons = ( (LCD.SELECT, 'Select', (1,1,1)),
-            (LCD.LEFT,   'Left'  , (1,0,0)),
-            (LCD.UP,     'Up'    , (0,0,1)),
-            (LCD.DOWN,   'Down'  , (0,1,0)),
-            (LCD.RIGHT,  'Right' , (1,0,1)) )
+        #self.buttons = ( (LCD.SELECT, 'Select', (1,1,1)),
+        #    (LCD.LEFT,   'Left'  , (1,0,0)),
+        #    (LCD.UP,     'Up'    , (0,0,1)),
+        #    (LCD.DOWN,   'Down'  , (0,1,0)),
+        #    (LCD.RIGHT,  'Right' , (1,0,1)) )
+
+        self.buttons = ( (LCD.SELECT, 'Select'),
+            (LCD.LEFT,   'Left'),
+            (LCD.UP,     'Up'  ),
+            (LCD.DOWN,   'Down'),
+            (LCD.RIGHT,  'Right') )
 
         #create default color
-        self.color=[1.0,1.0,1.0]
+        #self.color=[1.0,1.0,1.0]
+
+        # possible colors
+        self.colorArray = ['red','green','blue','yellow','cyan','magenta','white']
+        self.currentColorIndex = 0
+
+    def setColor(self,color):
+        '''set color to string value that translates into RGB vector'''
+        if color == 'red':
+            self.color = [1.0,0.0,0.0]
+        elif color == 'green':
+            self.color = [0.0,1.0,0.0]
+        elif color == 'blue':
+            self.color = [0.0,0.0,1.0]
+        elif color == 'yellow':
+            self.color = [1.0,1.0,0.0]
+        elif color == 'cyan':
+            self.color = [0.0,1.0,1.0]
+        elif color == 'magenta':
+            self.color = [1.0,0.0,0.0]
+        elif color == 'white':
+            self.color = [1.0,1.0,1.0]
+        self.updateColor()
+
+
+    def nextColor(self):
+        '''cycle through colors'''
+        self.currentColorIndex = (self.currentColorIndex + 1)%(len(self.colorArray))
+        self.setColor(self.colorArray[self.currentColorIndex])
+        return self.colorArray[self.currentColorIndex]
+
+    def previousColor(self):
+        '''cycle through colors'''
+        self.currentColorIndex = (self.currentColorIndex - 1)%(len(self.colorArray))
+        self.setColor(self.colorArray[self.currentColorIndex])
+        return self.colorArray[self.currentColorIndex]
+
+
+    def updateColor(self):
+        '''tell the lcd hardware to change color'''
+        self.lcd.set_color(self.color[0],self.color[1],self.color[2])
+        time.sleep(1)
 
         # # Show some basic colors.
         # lcd.set_color(1.0, 0.0, 0.0)
@@ -68,21 +115,19 @@ class LCDHardware(object):
 
     def update(self,*args,**kwargs):
         self.lcd.clear()
-        if 'color' in kwargs:
-            self.color=kwargs['color']
-        self.lcd.set_color(self.color[0],self.color[1],self.color[2])
         if 'line1' in kwargs:
             self.line1 = kwargs['line1']
+            self.lcd.message('{0}\n{1}'.format(self.line1,self.line2))
         if 'line2' in kwargs:
             self.line2 = kwargs['line2']
-        self.lcd.message('{0}\n{1}'.format(self.line1,self.line2))
+            self.lcd.message('{0}\n{1}'.format(self.line1,self.line2))
 
     def isButtonPressed(self):
 
         for button in self.buttons:
             if self.lcd.is_pressed(button[0]):
                 #print "button %s pressed" % button[1]
-                time.sleep(0.2)
+                time.sleep(0.3)
                 return button[1]
                 #else:
                     #return False
@@ -90,10 +135,9 @@ class LCDHardware(object):
 if __name__ == '__main__':
     lcd1 = LCDHardware()
 
-    lcd1.update(color=[1,0,0])
-    time.sleep(0.3)
-    lcd1.update(color=[0,1,0])
     lcd1.update(line1='first line')
     lcd1.update(line2='second line')
+    lcd1.setColor('red')
     lcd1.update(line1='updated first line')
+    lcd1.nextColor()
 
