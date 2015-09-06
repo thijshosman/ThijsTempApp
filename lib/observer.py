@@ -1,3 +1,6 @@
+import sys
+
+
 class Observable(object):
     def __init__(self,name=''):
         self.__observers = []
@@ -8,8 +11,10 @@ class Observable(object):
 
     def notify_observers(self, *args, **kwargs):
         for observer in self.__observers:
-            observer(self, *args, **kwargs)
-
+            try:
+                observer(self, *args, **kwargs)
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
 
 class Observer(object):
     def __init__(self, observable):
@@ -33,7 +38,7 @@ class MultiObserver(object):
 
 if __name__ == '__main__':
     subject = Observable()
-    
+
     observer = Observer(subject)
     subject.notify_observers('test')
 

@@ -14,11 +14,11 @@ class mainLoop(observer.MultiObserver):
         self.lcd1 = lcdH.LCDHardware()
         self.aSensor = temp.tempSensor()
 
-        # create a poller for the temp sensor
+        # create a poller for the temp sensorz
         self.aTempPoller = temp.sensorPoller(self.aSensor,interval=60)
 
         # log temperatures to plotly by adding plotlyobserver
-        self.plotlyobstemp = plotly.plotlyObserver(self.aTempPoller.observable,'config.json','test stream plot')
+        self.plotlyobstemp = plotly.plotlyObserver(self.aTempPoller.observable,'config.json','live temp plot')
 
         # add the temppoller observable to the list to be observed
         self.add_observable(self.aTempPoller.observable)
